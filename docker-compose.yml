@@ -1,0 +1,19 @@
+services:
+  opportunity-hunter:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      PORT: 8080
+      DATABASE_PATH: /data/opportunity_hunter.db
+      SCAN_INTERVAL_SECONDS: ${SCAN_INTERVAL_SECONDS:-3600}
+      LINKEDIN_ALERT_RSS_URL: ${LINKEDIN_ALERT_RSS_URL:-}
+      LLM_API_KEY: ${LLM_API_KEY:-}
+      LLM_BASE_URL: ${LLM_BASE_URL:-https://api.openai.com/v1/chat/completions}
+      LLM_MODEL: ${LLM_MODEL:-gpt-4o-mini}
+      CANDIDATE_PROFILE: ${CANDIDATE_PROFILE:-Java backend engineer with about 3 years of experience; Spring Boot; distributed systems; India-based; prioritize remote-friendly roles and hiring/referral posts.}
+    volumes:
+      - opportunity_data:/data
+    restart: unless-stopped
+volumes:
+  opportunity_data:

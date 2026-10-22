@@ -1,0 +1,25 @@
+services:
+  - type: web
+    name: opportunity-hunter
+    runtime: docker
+    plan: starter
+    healthCheckPath: /health
+    disk:
+      name: opportunity-hunter-data
+      mountPath: /data
+      sizeGB: 1
+    envVars:
+      - key: DATABASE_PATH
+        value: /data/opportunity_hunter.db
+      - key: SCAN_INTERVAL_SECONDS
+        value: "3600"
+      - key: LINKEDIN_ALERT_RSS_URL
+        sync: false
+      - key: LLM_API_KEY
+        sync: false
+      - key: LLM_BASE_URL
+        value: https://api.openai.com/v1/chat/completions
+      - key: LLM_MODEL
+        value: gpt-4o-mini
+      - key: CANDIDATE_PROFILE
+        value: Java backend engineer with about 3 years of experience; Spring Boot; distributed systems; India-based; prioritize remote-friendly roles and hiring/referral posts.
